@@ -6,6 +6,7 @@ dist/
 /.project
 aerospike-client-c/
 aerospike.egg-info/
+django_aerospike_cache.egg-info
 *.log
 tmp
 *.pyc

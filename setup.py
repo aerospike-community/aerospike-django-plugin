@@ -5,10 +5,10 @@ setup(
     url = "http://github.com/sebleier/django-redis-cache/",
     author = "Aerospike",
     author_email = "dhaval@aerospike.com",
-    version = "0.1.0",
+    version = "0.2.0",
     packages = ["aerospike_cache"],
     description = "Aerospike Cache Backend for Django",
-    install_requires=['aerospike>=1.0.34',],
+    install_requires=['aerospike>=1.0.37',],
     classifiers = [
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.6",

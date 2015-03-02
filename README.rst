@@ -12,6 +12,7 @@ Changelog
 
 * compatible with aerospike native support for int/str/list/dict and pickling
 for all the rest of data types.
+
 * "clear" is dependent on a bug fix from c client library and will be updated
 once its released in publicly available c/python client library. This will fail
 some of the tests which have dependency on clear api.

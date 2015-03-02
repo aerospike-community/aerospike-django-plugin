@@ -7,6 +7,14 @@ A cache backend for Django using the Aerospike key-value store server.
 
 Changelog
 =========
+0.2.0
+------
+
+* compatible with aerospike native support for int/str/list/dict and pickling
+for all the rest of data types.
+* "clear" is dependent on a bug fix from c client library and will be updated
+once its released in publicly available c/python client library. This will fail
+some of the tests which have dependency on clear api.
 
 0.1.0
 ------
@@ -44,7 +52,7 @@ On Django >= 1.3::
             'LOCATION': '<host>:<port>',
             'OPTIONS': {# optional
                 'NAMESPACE': "test",
-                'SET': "cache",   
+                'SET': "cache",
                 'BIN': "entry",
                 'USERNAME': "username",
                 'PASSWORD': "password",

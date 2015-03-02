@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = "django-aerospike-cache",
-    url = "http://github.com/sebleier/django-redis-cache/",
+    url = "https://github.com/aerospike/aerospike-django-plugin",
     author = "Aerospike",
     author_email = "dhaval@aerospike.com",
     version = "0.2.0",

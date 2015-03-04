@@ -38,7 +38,7 @@ class AeroCacheTests(TestCase):
         #clears data
         self.cache.clear()
         #closes client connection to aerospike
-        self.cache.close()
+        #self.cache.close()
 
     def get_cache(self, backend=None):
         if VERSION[0] == 1 and VERSION[1] < 7:

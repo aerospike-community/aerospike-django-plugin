@@ -215,19 +215,13 @@ class AerospikeCache(BaseCache):
         #http://stackoverflow.com/a/624948/119031 to check for function type
         #TODO - use bytearray(function/class/tuple) to serialize unsupported data types
         value_type = type(value)
-        print("value_type ", value_type)
-        #print("is-class ", inspect.isclass(value_type))
-        #print("is-builtin ", inspect.isbuiltin(value_type))
-        #if isinstance(value, (tuple)) or value_type is types.FunctionType or value_type is types.ClassType:
-        #if isinstance(value, (tuple)) or value_type is types.FunctionType or inspect.isclass(value_type):
         if not isinstance(value, (int, str, list, dict)):
             pickle_value = pickle.dumps(value)
-            #print(type(pickle_value), " ", pickle_value)
             #now store it as an array
             #value = array('B', pickle_value).tostring()
             #aerospike python library does not recognize array so use bytearray
             value = bytearray( pickle_value)
-            print("\nadd ", value)
+
 
         meta = {}
         #check if its int or long else use default
@@ -253,7 +247,6 @@ class AerospikeCache(BaseCache):
 
         try:
             (key, metadata, record) = self._client.get(aero_key,self.policy)
-            print(key, metadata, record)
             if record is None:
                 return default
             value = record[self.aero_bin]
@@ -341,7 +334,6 @@ class AerospikeCache(BaseCache):
 
         #remove each record in the bin
         def callback((key, meta, bins)):
-            print("Scan returns ", key, meta, bins)
             self._client.remove(key)
 
         scan_obj = self._client.scan(self.aero_namespace, self.aero_set)
@@ -360,7 +352,6 @@ class AerospikeCache(BaseCache):
         not unpickled here.
         """
         #if its byte array then unpickle else ignore
-        print("unpickle - type of value ",type(value))
         if isinstance(value, bytearray):
             value = smart_bytes(value)
             return pickle.loads(value)

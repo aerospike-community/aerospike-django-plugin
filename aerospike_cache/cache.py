@@ -341,11 +341,11 @@ class AerospikeCache(BaseCache):
 
         scan_obj.foreach(callback)
 
-    def close(self):
+    def close(self, **kwargs):
         """
         closes the database connection
         """
-        self._client.close()
+        self._client.close(**kwargs)
         
     def unpickle(self, value):
         """

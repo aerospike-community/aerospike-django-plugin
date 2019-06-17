@@ -225,7 +225,7 @@ class AerospikeCache(BaseCache):
 
         meta = {}
         #check if its int or long else use default
-        if isinstance(timeout, (int , long)):
+        if isinstance(timeout, int):
             meta['ttl'] = timeout
         else:
             meta['ttl'] = self.timeout
@@ -303,7 +303,7 @@ class AerospikeCache(BaseCache):
         meta = None
         try:
             key, meta = self._client.exists(self.make_key(key, version=version))
-        except Exception, eargs:
+        except Exception as eargs:
             print("error: {0}".format(eargs), file=sys.stderr)
 
         if meta == None:
@@ -322,7 +322,7 @@ class AerospikeCache(BaseCache):
         try:
             aero_key = self.make_key(key, version=version)
             value = self._client.increment(aero_key, self.aero_bin, delta)
-        except Exception, eargs:
+        except Exception as eargs:
             value = self.get(key) + delta
             self.set(key, value)
         return value
@@ -333,18 +333,19 @@ class AerospikeCache(BaseCache):
         """
 
         #remove each record in the bin
-        def callback((key, meta, bins)):
+        def callback(key_meta_bins_tuple):
+            key = key_meta_bins_tuple[0]
             self._client.remove(key)
 
         scan_obj = self._client.scan(self.aero_namespace, self.aero_set)
 
         scan_obj.foreach(callback)
 
-    def close(self):
+    def close(self, **kwargs):
         """
         closes the database connection
         """
-        self._client.close()
+        self._client.close(**kwargs)
         
     def unpickle(self, value):
         """
